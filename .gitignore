@@ -5,3 +5,7 @@ src/dlg/dlg.c
 subprojects/*
 !subprojects/*.wrap
 /tests/data/*
+/amiga_shared/*.a
+/amiga_shared/*.library
+/amiga_shared/*.map
+.vscode

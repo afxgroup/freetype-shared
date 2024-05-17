@@ -1,0 +1,1009 @@
+<library name="freetype" basename="FreetypeBase" basetype="FreetypeLibrary" openname="freetype.library">
+    <include>freetype/freetype.h</include>
+    <include>freetype/ftbdf.h</include>
+    <include>freetype/ftcache.h</include>
+    <include>freetype/ftcolor.h</include>
+    <include>freetype/ftgxval.h</include>
+    <include>freetype/ftlcdfil.h</include>
+    <include>freetype/ftlist.h</include>
+    <include>freetype/ftlogging.h</include>
+    <include>freetype/ftmm.h</include>
+    <include>freetype/ftmodapi.h</include>
+    <include>freetype/ftoutln.h</include>
+    <include>freetype/ftsnames.h</include>
+    <include>freetype/ftstroke.h</include>
+    <include>freetype/fttrigon.h</include>
+    <include>freetype/ftwinfnt.h</include>
+    <include>freetype/t1tables.h</include>
+    <include>freetype/tttables.h</include>
+
+	<interface name="main" version="1.0" flags="protected" struct="FreetypeIFace" global="IFreetype" prefix="_impl_" asmprefix="IFreetype">
+        <method name="Obtain" result="uint32"/>
+        <method name="Release" result="uint32"/>
+        <method name="Expunge" result="void" status="unimplemented"/>
+        <method name="Clone" result="struct Interface *" status="unimplemented"/>
+
+		<method name="FT_Init_FreeType" result="FT_Error">
+			<arg name="alibrary" type="FT_Library *" />
+		</method>
+		<method name="FT_Done_FreeType" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+		</method>
+		<method name="FT_New_Face" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="filepathname" type="const char*" />
+			<arg name="face_index" type="FT_Long" />
+			<arg name="aface" type="FT_Face *" />
+		</method>
+		<method name="FT_New_Memory_Face" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="file_base" type="const FT_Byte*" />
+			<arg name="file_size" type="FT_Long" />
+			<arg name="face_index" type="FT_Long" />
+			<arg name="aface" type="FT_Face *" />
+		</method>
+		<method name="FT_Open_Face" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="args" type="const FT_Open_Args*" />
+			<arg name="face_index" type="FT_Long" />
+			<arg name="aface" type="FT_Face *" />
+		</method>
+		<method name="FT_Attach_File" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="filepathname" type="const char*" />
+		</method>
+		<method name="FT_Attach_Stream" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="parameters" type="const FT_Open_Args*" />
+		</method>
+		<method name="FT_Reference_Face" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Done_Face" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Select_Size" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="strike_index" type="FT_Int" />
+		</method>
+		<method name="FT_Request_Size" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="req" type="FT_Size_Request" />
+		</method>
+		<method name="FT_Set_Char_Size" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="char_width" type="FT_F26Dot6" />
+			<arg name="char_height" type="FT_F26Dot6" />
+			<arg name="horz_resolution" type="FT_UInt" />
+			<arg name="vert_resolution" type="FT_UInt" />
+		</method>
+		<method name="FT_Set_Pixel_Sizes" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="pixel_width" type="FT_UInt" />
+			<arg name="pixel_height" type="FT_UInt" />
+		</method>
+		<method name="FT_Load_Glyph" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="glyph_index" type="FT_UInt" />
+			<arg name="load_flags" type="FT_Int32" />
+		</method>
+		<method name="FT_Load_Char" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="char_code" type="FT_ULong" />
+			<arg name="load_flags" type="FT_Int32" />
+		</method>
+		<method name="FT_Set_Transform" result="void">
+			<arg name="face" type="FT_Face" />
+			<arg name="matrix" type="FT_Matrix*" />
+			<arg name="delta" type="FT_Vector*" />
+		</method>
+		<method name="FT_Get_Transform" result="void">
+			<arg name="face" type="FT_Face" />
+			<arg name="matrix" type="FT_Matrix*" />
+			<arg name="delta" type="FT_Vector*" />
+		</method>
+		<method name="FT_Render_Glyph" result="FT_Error">
+			<arg name="slot" type="FT_GlyphSlot" />
+			<arg name="render_mode" type="FT_Render_Mode" />
+		</method>
+		<method name="FT_Get_Kerning" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="left_glyph" type="FT_UInt" />
+			<arg name="right_glyph" type="FT_UInt" />
+			<arg name="kern_mode" type="FT_UInt" />
+			<arg name="akerning" type="FT_Vector *" />
+		</method>
+		<method name="FT_Get_Track_Kerning" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="point_size" type="FT_Fixed" />
+			<arg name="degree" type="FT_Int" />
+			<arg name="akerning" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Select_Charmap" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="encoding" type="FT_Encoding" />
+		</method>
+		<method name="FT_Set_Charmap" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="charmap" type="FT_CharMap" />
+		</method>
+		<method name="FT_Get_Charmap_Index" result="FT_Int">
+			<arg name="charmap" type="FT_CharMap" />
+		</method>
+		<method name="FT_Get_Char_Index" result="FT_UInt">
+			<arg name="face" type="FT_Face" />
+			<arg name="charcode" type="FT_ULong" />
+		</method>
+		<method name="FT_Get_First_Char" result="FT_ULong">
+			<arg name="face" type="FT_Face" />
+			<arg name="agindex" type="FT_UInt *" />
+		</method>
+		<method name="FT_Get_Next_Char" result="FT_ULong">
+			<arg name="face" type="FT_Face" />
+			<arg name="char_code" type="FT_ULong" />
+			<arg name="agindex" type="FT_UInt *" />
+		</method>
+		<method name="FT_Face_Properties" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_properties" type="FT_UInt" />
+			<arg name="properties" type="FT_Parameter*" />
+		</method>
+		<method name="FT_Get_Name_Index" result="FT_UInt">
+			<arg name="face" type="FT_Face" />
+			<arg name="glyph_name" type="const FT_String*" />
+		</method>
+		<method name="FT_Get_Glyph_Name" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="glyph_index" type="FT_UInt" />
+			<arg name="buffer" type="FT_Pointer" />
+			<arg name="buffer_max" type="FT_UInt" />
+		</method>
+		<method name="FT_Get_Postscript_Name" result="const char*">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Get_SubGlyph_Info" result="FT_Error">
+			<arg name="glyph" type="FT_GlyphSlot" />
+			<arg name="sub_index" type="FT_UInt" />
+			<arg name="p_index" type="FT_Int *" />
+			<arg name="p_flags" type="FT_UInt *" />
+			<arg name="p_arg1" type="FT_Int *" />
+			<arg name="p_arg2" type="FT_Int *" />
+			<arg name="p_transform" type="FT_Matrix *" />
+		</method>
+		<method name="FT_Get_FSType_Flags" result="FT_UShort">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Face_GetCharVariantIndex" result="FT_UInt">
+			<arg name="face" type="FT_Face" />
+			<arg name="charcode" type="FT_ULong" />
+			<arg name="variantSelector" type="FT_ULong" />
+		</method>
+		<method name="FT_Face_GetCharVariantIsDefault" result="FT_Int">
+			<arg name="face" type="FT_Face" />
+			<arg name="charcode" type="FT_ULong" />
+			<arg name="variantSelector" type="FT_ULong" />
+		</method>
+		<method name="FT_Face_GetVariantSelectors" result="FT_UInt32*">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Face_GetVariantsOfChar" result="FT_UInt32*">
+			<arg name="face" type="FT_Face" />
+			<arg name="charcode" type="FT_ULong" />
+		</method>
+		<method name="FT_Face_GetCharsOfVariant" result="FT_UInt32*">
+			<arg name="face" type="FT_Face" />
+			<arg name="variantSelector" type="FT_ULong" />
+		</method>
+		<method name="FT_MulDiv" result="FT_Long">
+			<arg name="a" type="FT_Long" />
+			<arg name="b" type="FT_Long" />
+			<arg name="c" type="FT_Long" />
+		</method>
+		<method name="FT_MulFix" result="FT_Long">
+			<arg name="a" type="FT_Long" />
+			<arg name="b" type="FT_Long" />
+		</method>
+		<method name="FT_DivFix" result="FT_Long">
+			<arg name="a" type="FT_Long" />
+			<arg name="b" type="FT_Long" />
+		</method>
+		<method name="FT_RoundFix" result="FT_Fixed">
+			<arg name="a" type="FT_Fixed" />
+		</method>
+		<method name="FT_CeilFix" result="FT_Fixed">
+			<arg name="a" type="FT_Fixed" />
+		</method>
+		<method name="FT_FloorFix" result="FT_Fixed">
+			<arg name="a" type="FT_Fixed" />
+		</method>
+		<method name="FT_Vector_Transform" result="void">
+			<arg name="vector" type="FT_Vector*" />
+			<arg name="matrix" type="const FT_Matrix*" />
+		</method>
+		<method name="FT_Library_Version" result="void">
+			<arg name="library" type="FT_Library" />
+			<arg name="amajor" type="FT_Int *" />
+			<arg name="aminor" type="FT_Int *" />
+			<arg name="apatch" type="FT_Int *" />
+		</method>
+		<method name="FT_Face_CheckTrueTypePatents" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Face_SetUnpatentedHinting" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+			<arg name="value" type="FT_Bool" />
+		</method>
+		<method name="FT_Get_Advance" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="gindex" type="FT_UInt" />
+			<arg name="load_flags" type="FT_Int32" />
+			<arg name="padvance" type="FT_Fixed *" />
+		</method>
+		<method name="FT_Get_Advances" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="start" type="FT_UInt" />
+			<arg name="count" type="FT_UInt" />
+			<arg name="load_flags" type="FT_Int32" />
+			<arg name="padvances" type="FT_Fixed *" />
+		</method>
+		<method name="FT_Outline_Get_BBox" result="FT_Error">
+			<arg name="outline" type="FT_Outline*" />
+			<arg name="abbox" type="FT_BBox *" />
+		</method>
+		<method name="FT_Get_BDF_Charset_ID" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="acharset_encoding" type="const char* *" />
+			<arg name="acharset_registry" type="const char* *" />
+		</method>
+		<method name="FT_Get_BDF_Property" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="prop_name" type="const char*" />
+			<arg name="aproperty" type="BDF_PropertyRec *" />
+		</method>
+		<method name="FT_Bitmap_Init" result="void">
+			<arg name="abitmap" type="FT_Bitmap *" />
+		</method>
+		<method name="FT_Bitmap_New" result="void">
+			<arg name="abitmap" type="FT_Bitmap *" />
+		</method>
+		<method name="FT_Bitmap_Copy" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="source" type="const FT_Bitmap *" />
+			<arg name="target" type="FT_Bitmap *" />
+		</method>
+		<method name="FT_Bitmap_Embolden" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="bitmap" type="FT_Bitmap*" />
+			<arg name="xStrength" type="FT_Pos" />
+			<arg name="yStrength" type="FT_Pos" />
+		</method>
+		<method name="FT_Bitmap_Convert" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="source" type="const FT_Bitmap *" />
+			<arg name="target" type="FT_Bitmap *" />
+			<arg name="alignment" type="FT_Int" />
+		</method>
+		<method name="FT_Bitmap_Blend" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="source" type="const FT_Bitmap*" />
+			<arg name="source_offset" type="const FT_Vector" />
+			<arg name="target" type="FT_Bitmap*" />
+			<arg name="atarget_offset" type="FT_Vector *" />
+			<arg name="color" type="FT_Color" />
+		</method>
+		<method name="FT_GlyphSlot_Own_Bitmap" result="FT_Error">
+			<arg name="slot" type="FT_GlyphSlot" />
+		</method>
+		<method name="FT_Bitmap_Done" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="bitmap" type="FT_Bitmap *" />
+		</method>
+		<method name="FT_Stream_OpenBzip2" result="FT_Error">
+			<arg name="stream" type="FT_Stream" />
+			<arg name="source" type="FT_Stream" />
+		</method>
+		<method name="FTC_Manager_New" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="max_faces" type="FT_UInt" />
+			<arg name="max_sizes" type="FT_UInt" />
+			<arg name="max_bytes" type="FT_ULong" />
+			<arg name="requester" type="FTC_Face_Requester" />
+			<arg name="req_data" type="FT_Pointer" />
+			<arg name="amanager" type="FTC_Manager *" />
+		</method>
+		<method name="FTC_Manager_Reset" result="void">
+			<arg name="manager" type="FTC_Manager" />
+		</method>
+		<method name="FTC_Manager_Done" result="void">
+			<arg name="manager" type="FTC_Manager" />
+		</method>
+		<method name="FTC_Manager_LookupFace" result="FT_Error">
+			<arg name="manager" type="FTC_Manager" />
+			<arg name="face_id" type="FTC_FaceID" />
+			<arg name="aface" type="FT_Face *" />
+		</method>
+		<method name="FTC_Manager_LookupSize" result="FT_Error">
+			<arg name="manager" type="FTC_Manager" />
+			<arg name="scaler" type="FTC_Scaler" />
+			<arg name="asize" type="FT_Size *" />
+		</method>
+		<method name="FTC_Node_Unref" result="void">
+			<arg name="node" type="FTC_Node" />
+			<arg name="manager" type="FTC_Manager" />
+		</method>
+		<method name="FTC_Manager_RemoveFaceID" result="void">
+			<arg name="manager" type="FTC_Manager" />
+			<arg name="face_id" type="FTC_FaceID" />
+		</method>
+		<method name="FTC_CMapCache_New" result="FT_Error">
+			<arg name="manager" type="FTC_Manager" />
+			<arg name="acache" type="FTC_CMapCache *" />
+		</method>
+		<method name="FTC_CMapCache_Lookup" result="FT_UInt">
+			<arg name="cache" type="FTC_CMapCache" />
+			<arg name="face_id" type="FTC_FaceID" />
+			<arg name="cmap_index" type="FT_Int" />
+			<arg name="char_code" type="FT_UInt32" />
+		</method>
+		<method name="FTC_ImageCache_New" result="FT_Error">
+			<arg name="manager" type="FTC_Manager" />
+			<arg name="acache" type="FTC_ImageCache *" />
+		</method>
+		<method name="FTC_ImageCache_Lookup" result="FT_Error">
+			<arg name="cache" type="FTC_ImageCache" />
+			<arg name="type" type="FTC_ImageType" />
+			<arg name="gindex" type="FT_UInt" />
+			<arg name="aglyph" type="FT_Glyph *" />
+			<arg name="anode" type="FTC_Node *" />
+		</method>
+		<method name="FTC_ImageCache_LookupScaler" result="FT_Error">
+			<arg name="cache" type="FTC_ImageCache" />
+			<arg name="scaler" type="FTC_Scaler" />
+			<arg name="load_flags" type="FT_ULong" />
+			<arg name="gindex" type="FT_UInt" />
+			<arg name="aglyph" type="FT_Glyph *" />
+			<arg name="anode" type="FTC_Node *" />
+		</method>
+		<method name="FTC_SBitCache_New" result="FT_Error">
+			<arg name="manager" type="FTC_Manager" />
+			<arg name="acache" type="FTC_SBitCache *" />
+		</method>
+		<method name="FTC_SBitCache_Lookup" result="FT_Error">
+			<arg name="cache" type="FTC_SBitCache" />
+			<arg name="type" type="FTC_ImageType" />
+			<arg name="gindex" type="FT_UInt" />
+			<arg name="sbit" type="FTC_SBit *" />
+			<arg name="anode" type="FTC_Node *" />
+		</method>
+		<method name="FTC_SBitCache_LookupScaler" result="FT_Error">
+			<arg name="cache" type="FTC_SBitCache" />
+			<arg name="scaler" type="FTC_Scaler" />
+			<arg name="load_flags" type="FT_ULong" />
+			<arg name="gindex" type="FT_UInt" />
+			<arg name="sbit" type="FTC_SBit *" />
+			<arg name="anode" type="FTC_Node *" />
+		</method>
+		<method name="FT_Get_CID_Registry_Ordering_Supplement" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="registry" type="const char* *" />
+			<arg name="ordering" type="const char* *" />
+			<arg name="supplement" type="FT_Int *" />
+		</method>
+		<method name="FT_Get_CID_Is_Internally_CID_Keyed" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="is_cid" type="FT_Bool *" />
+		</method>
+		<method name="FT_Get_CID_From_Glyph_Index" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="glyph_index" type="FT_UInt" />
+			<arg name="cid" type="FT_UInt *" />
+		</method>
+		<method name="FT_Palette_Data_Get" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="apalette" type="FT_Palette_Data *" />
+		</method>
+		<method name="FT_Palette_Select" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="palette_index" type="FT_UShort" />
+			<arg name="apalette" type="FT_Color* *" />
+		</method>
+		<method name="FT_Palette_Set_Foreground_Color" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="foreground_color" type="FT_Color" />
+		</method>
+		<method name="FT_Get_Color_Glyph_Layer" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+			<arg name="base_glyph" type="FT_UInt" />
+			<arg name="aglyph_index" type="FT_UInt *" />
+			<arg name="acolor_index" type="FT_UInt *" />
+			<arg name="iterator" type="FT_LayerIterator*" />
+		</method>
+		<method name="FT_Get_Color_Glyph_Paint" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+			<arg name="base_glyph" type="FT_UInt" />
+			<arg name="root_transform" type="FT_Color_Root_Transform" />
+			<arg name="paint" type="FT_OpaquePaint*" />
+		</method>
+		<method name="FT_Get_Color_Glyph_ClipBox" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+			<arg name="base_glyph" type="FT_UInt" />
+			<arg name="clip_box" type="FT_ClipBox*" />
+		</method>
+		<method name="FT_Get_Paint_Layers" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+			<arg name="iterator" type="FT_LayerIterator*" />
+			<arg name="paint" type="FT_OpaquePaint*" />
+		</method>
+		<method name="FT_Get_Colorline_Stops" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+			<arg name="color_stop" type="FT_ColorStop*" />
+			<arg name="iterator" type="FT_ColorStopIterator*" />
+		</method>
+		<method name="FT_Get_Paint" result="FT_Bool">
+			<arg name="face" type="FT_Face" />
+			<arg name="opaque_paint" type="FT_OpaquePaint" />
+			<arg name="paint" type="FT_COLR_Paint*" />
+		</method>
+		<method name="FT_Error_String" result="const char*">
+			<arg name="error_code" type="FT_Error" />
+		</method>
+		<method name="FT_Get_Font_Format" result="const char*">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Get_X11_Font_Format" result="const char*">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Get_Gasp" result="FT_Int">
+			<arg name="face" type="FT_Face" />
+			<arg name="ppem" type="FT_UInt" />
+		</method>
+		<method name="FT_New_Glyph" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="format" type="FT_Glyph_Format" />
+			<arg name="aglyph" type="FT_Glyph *" />
+		</method>
+		<method name="FT_Get_Glyph" result="FT_Error">
+			<arg name="slot" type="FT_GlyphSlot" />
+			<arg name="aglyph" type="FT_Glyph *" />
+		</method>
+		<method name="FT_Glyph_Copy" result="FT_Error">
+			<arg name="source" type="FT_Glyph" />
+			<arg name="target" type="FT_Glyph *" />
+		</method>
+		<method name="FT_Glyph_Transform" result="FT_Error">
+			<arg name="glyph" type="FT_Glyph" />
+			<arg name="matrix" type="const FT_Matrix*" />
+			<arg name="delta" type="const FT_Vector*" />
+		</method>
+		<method name="FT_Glyph_Get_CBox" result="void">
+			<arg name="glyph" type="FT_Glyph" />
+			<arg name="bbox_mode" type="FT_UInt" />
+			<arg name="acbox" type="FT_BBox *" />
+		</method>
+		<method name="FT_Glyph_To_Bitmap" result="FT_Error">
+			<arg name="the_glyph" type="FT_Glyph*" />
+			<arg name="render_mode" type="FT_Render_Mode" />
+			<arg name="origin" type="const FT_Vector*" />
+			<arg name="destroy" type="FT_Bool" />
+		</method>
+		<method name="FT_Done_Glyph" result="void">
+			<arg name="glyph" type="FT_Glyph" />
+		</method>
+		<method name="FT_Matrix_Multiply" result="void">
+			<arg name="a" type="const FT_Matrix*" />
+			<arg name="b" type="FT_Matrix*" />
+		</method>
+		<method name="FT_Matrix_Invert" result="FT_Error">
+			<arg name="matrix" type="FT_Matrix*" />
+		</method>
+		<method name="FT_TrueTypeGX_Validate" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="validation_flags" type="FT_UInt" />
+			<arg name="tables[FT_VALIDATE_GX_LENGTH]" type="FT_Bytes" />
+			<arg name="table_length" type="FT_UInt" />
+		</method>
+		<method name="FT_TrueTypeGX_Free" result="void">
+			<arg name="face" type="FT_Face" />
+			<arg name="table" type="FT_Bytes" />
+		</method>
+		<method name="FT_ClassicKern_Validate" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="validation_flags" type="FT_UInt" />
+			<arg name="ckern_table" type="FT_Bytes *" />
+		</method>
+		<method name="FT_ClassicKern_Free" result="void">
+			<arg name="face" type="FT_Face" />
+			<arg name="table" type="FT_Bytes" />
+		</method>
+		<method name="FT_Stream_OpenGzip" result="FT_Error">
+			<arg name="stream" type="FT_Stream" />
+			<arg name="source" type="FT_Stream" />
+		</method>
+		<method name="FT_Gzip_Uncompress" result="FT_Error">
+			<arg name="memory" type="FT_Memory" />
+			<arg name="output" type="FT_Byte*" />
+			<arg name="output_len" type="FT_ULong*" />
+			<arg name="input" type="const FT_Byte*" />
+			<arg name="input_len" type="FT_ULong" />
+		</method>
+		<method name="FT_Library_SetLcdFilter" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="filter" type="FT_LcdFilter" />
+		</method>
+		<method name="FT_Library_SetLcdFilterWeights" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="weights" type="unsigned char *" />
+		</method>
+		<method name="FT_Library_SetLcdGeometry" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="sub[3]" type="FT_Vector" />
+		</method>
+		<method name="FT_List_Find" result="FT_ListNode">
+			<arg name="list" type="FT_List" />
+			<arg name="data" type="void*" />
+		</method>
+		<method name="FT_List_Add" result="void">
+			<arg name="list" type="FT_List" />
+			<arg name="node" type="FT_ListNode" />
+		</method>
+		<method name="FT_List_Insert" result="void">
+			<arg name="list" type="FT_List" />
+			<arg name="node" type="FT_ListNode" />
+		</method>
+		<method name="FT_List_Remove" result="void">
+			<arg name="list" type="FT_List" />
+			<arg name="node" type="FT_ListNode" />
+		</method>
+		<method name="FT_List_Up" result="void">
+			<arg name="list" type="FT_List" />
+			<arg name="node" type="FT_ListNode" />
+		</method>
+		<method name="FT_List_Iterate" result="FT_Error">
+			<arg name="list" type="FT_List" />
+			<arg name="iterator" type="FT_List_Iterator" />
+			<arg name="user" type="void*" />
+		</method>
+		<method name="FT_List_Finalize" result="void">
+			<arg name="list" type="FT_List" />
+			<arg name="destroy" type="FT_List_Destructor" />
+			<arg name="memory" type="FT_Memory" />
+			<arg name="user" type="void*" />
+		</method>
+		<method name="FT_Trace_Set_Level" result="void">
+			<arg name="tracing_level" type="const char*" />
+		</method>
+		<method name="FT_Trace_Set_Default_Level" result="void" />
+		<method name="FT_Set_Log_Handler" result="void">
+			<arg name="handler" type="FT_Custom_Log_Handler" />
+		</method>
+		<method name="FT_Set_Default_Log_Handler" result="void" />
+		<method name="FT_Stream_OpenLZW" result="FT_Error">
+			<arg name="stream" type="FT_Stream" />
+			<arg name="source" type="FT_Stream" />
+		</method>
+		<method name="FT_Get_Multi_Master" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="amaster" type="FT_Multi_Master *" />
+		</method>
+		<method name="FT_Get_MM_Var" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="amaster" type="FT_MM_Var* *" />
+		</method>
+		<method name="FT_Done_MM_Var" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="amaster" type="FT_MM_Var *" />
+		</method>
+		<method name="FT_Set_MM_Design_Coordinates" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_coords" type="FT_UInt" />
+			<arg name="coords" type="FT_Long*" />
+		</method>
+		<method name="FT_Set_Var_Design_Coordinates" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_coords" type="FT_UInt" />
+			<arg name="coords" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Get_Var_Design_Coordinates" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_coords" type="FT_UInt" />
+			<arg name="coords" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Set_MM_Blend_Coordinates" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_coords" type="FT_UInt" />
+			<arg name="coords" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Get_MM_Blend_Coordinates" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_coords" type="FT_UInt" />
+			<arg name="coords" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Set_Var_Blend_Coordinates" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_coords" type="FT_UInt" />
+			<arg name="coords" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Get_Var_Blend_Coordinates" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="num_coords" type="FT_UInt" />
+			<arg name="coords" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Set_MM_WeightVector" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="len" type="FT_UInt" />
+			<arg name="weightvector" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Get_MM_WeightVector" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="len" type="FT_UInt*" />
+			<arg name="weightvector" type="FT_Fixed*" />
+		</method>
+		<method name="FT_Get_Var_Axis_Flags" result="FT_Error">
+			<arg name="master" type="FT_MM_Var*" />
+			<arg name="axis_index" type="FT_UInt" />
+			<arg name="flags" type="FT_UInt*" />
+		</method>
+		<method name="FT_Set_Named_Instance" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="instance_index" type="FT_UInt" />
+		</method>
+		<method name="FT_Get_Default_Named_Instance" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="instance_index" type="FT_UInt *" />
+		</method>
+		<method name="FT_Add_Module" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="clazz" type="const FT_Module_Class*" />
+		</method>
+		<method name="FT_Get_Module" result="FT_Module">
+			<arg name="library" type="FT_Library" />
+			<arg name="module_name" type="const char*" />
+		</method>
+		<method name="FT_Remove_Module" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="module" type="FT_Module" />
+		</method>
+		<method name="FT_Property_Set" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="module_name" type="const FT_String*" />
+			<arg name="property_name" type="const FT_String*" />
+			<arg name="value" type="const void*" />
+		</method>
+		<method name="FT_Property_Get" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="module_name" type="const FT_String*" />
+			<arg name="property_name" type="const FT_String*" />
+			<arg name="value" type="void*" />
+		</method>
+		<method name="FT_Set_Default_Properties" result="void">
+			<arg name="library" type="FT_Library" />
+		</method>
+		<method name="FT_Reference_Library" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+		</method>
+		<method name="FT_New_Library" result="FT_Error">
+			<arg name="memory" type="FT_Memory" />
+			<arg name="alibrary" type="FT_Library *" />
+		</method>
+		<method name="FT_Done_Library" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+		</method>
+		<method name="FT_Set_Debug_Hook" result="void">
+			<arg name="library" type="FT_Library" />
+			<arg name="hook_index" type="FT_UInt" />
+			<arg name="debug_hook" type="FT_DebugHook_Func" />
+		</method>
+		<method name="FT_Add_Default_Modules" result="void">
+			<arg name="library" type="FT_Library" />
+		</method>
+		<method name="FT_Get_TrueType_Engine_Type" result="FT_TrueTypeEngineType">
+			<arg name="library" type="FT_Library" />
+		</method>
+		<method name="FT_OpenType_Validate" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="validation_flags" type="FT_UInt" />
+			<arg name="BASE_table" type="FT_Bytes *" />
+			<arg name="GDEF_table" type="FT_Bytes *" />
+			<arg name="GPOS_table" type="FT_Bytes *" />
+			<arg name="GSUB_table" type="FT_Bytes *" />
+			<arg name="JSTF_table" type="FT_Bytes *" />
+		</method>
+		<method name="FT_OpenType_Free" result="void">
+			<arg name="face" type="FT_Face" />
+			<arg name="table" type="FT_Bytes" />
+		</method>
+		<method name="FT_Outline_Decompose" result="FT_Error">
+			<arg name="outline" type="FT_Outline*" />
+			<arg name="func_interface" type="const FT_Outline_Funcs*" />
+			<arg name="user" type="void*" />
+		</method>
+		<method name="FT_Outline_New" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="numPoints" type="FT_UInt" />
+			<arg name="numContours" type="FT_Int" />
+			<arg name="anoutline" type="FT_Outline *" />
+		</method>
+		<method name="FT_Outline_Done" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Outline_Check" result="FT_Error">
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Outline_Get_CBox" result="void">
+			<arg name="outline" type="const FT_Outline*" />
+			<arg name="acbox" type="FT_BBox *" />
+		</method>
+		<method name="FT_Outline_Translate" result="void">
+			<arg name="outline" type="const FT_Outline*" />
+			<arg name="xOffset" type="FT_Pos" />
+			<arg name="yOffset" type="FT_Pos" />
+		</method>
+		<method name="FT_Outline_Copy" result="FT_Error">
+			<arg name="source" type="const FT_Outline*" />
+			<arg name="target" type="FT_Outline *" />
+		</method>
+		<method name="FT_Outline_Transform" result="void">
+			<arg name="outline" type="const FT_Outline*" />
+			<arg name="matrix" type="const FT_Matrix*" />
+		</method>
+		<method name="FT_Outline_Embolden" result="FT_Error">
+			<arg name="outline" type="FT_Outline*" />
+			<arg name="strength" type="FT_Pos" />
+		</method>
+		<method name="FT_Outline_EmboldenXY" result="FT_Error">
+			<arg name="outline" type="FT_Outline*" />
+			<arg name="xstrength" type="FT_Pos" />
+			<arg name="ystrength" type="FT_Pos" />
+		</method>
+		<method name="FT_Outline_Reverse" result="void">
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Outline_Get_Bitmap" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="outline" type="FT_Outline*" />
+			<arg name="abitmap" type="const FT_Bitmap *" />
+		</method>
+		<method name="FT_Outline_Render" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="outline" type="FT_Outline*" />
+			<arg name="params" type="FT_Raster_Params*" />
+		</method>
+		<method name="FT_Outline_Get_Orientation" result="FT_Orientation">
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Get_PFR_Metrics" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="aoutline_resolution" type="FT_UInt *" />
+			<arg name="ametrics_resolution" type="FT_UInt *" />
+			<arg name="ametrics_x_scale" type="FT_Fixed *" />
+			<arg name="ametrics_y_scale" type="FT_Fixed *" />
+		</method>
+		<method name="FT_Get_PFR_Kerning" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="left" type="FT_UInt" />
+			<arg name="right" type="FT_UInt" />
+			<arg name="avector" type="FT_Vector *" />
+		</method>
+		<method name="FT_Get_PFR_Advance" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="gindex" type="FT_UInt" />
+			<arg name="aadvance" type="FT_Pos *" />
+		</method>
+		<method name="FT_Get_Renderer" result="FT_Renderer">
+			<arg name="library" type="FT_Library" />
+			<arg name="format" type="FT_Glyph_Format" />
+		</method>
+		<method name="FT_Set_Renderer" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="renderer" type="FT_Renderer" />
+			<arg name="num_params" type="FT_UInt" />
+			<arg name="parameters" type="FT_Parameter*" />
+		</method>
+		<method name="FT_New_Size" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="size" type="FT_Size*" />
+		</method>
+		<method name="FT_Done_Size" result="FT_Error">
+			<arg name="size" type="FT_Size" />
+		</method>
+		<method name="FT_Activate_Size" result="FT_Error">
+			<arg name="size" type="FT_Size" />
+		</method>
+		<method name="FT_Get_Sfnt_Name_Count" result="FT_UInt">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Get_Sfnt_Name" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="idx" type="FT_UInt" />
+			<arg name="aname" type="FT_SfntName *" />
+		</method>
+		<method name="FT_Get_Sfnt_LangTag" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="langID" type="FT_UInt" />
+			<arg name="alangTag" type="FT_SfntLangTag *" />
+		</method>
+		<method name="FT_Outline_GetInsideBorder" result="FT_StrokerBorder">
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Outline_GetOutsideBorder" result="FT_StrokerBorder">
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Stroker_New" result="FT_Error">
+			<arg name="library" type="FT_Library" />
+			<arg name="astroker" type="FT_Stroker *" />
+		</method>
+		<method name="FT_Stroker_Set" result="void">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="radius" type="FT_Fixed" />
+			<arg name="line_cap" type="FT_Stroker_LineCap" />
+			<arg name="line_join" type="FT_Stroker_LineJoin" />
+			<arg name="miter_limit" type="FT_Fixed" />
+		</method>
+		<method name="FT_Stroker_Rewind" result="void">
+			<arg name="stroker" type="FT_Stroker" />
+		</method>
+		<method name="FT_Stroker_ParseOutline" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="outline" type="FT_Outline*" />
+			<arg name="opened" type="FT_Bool" />
+		</method>
+		<method name="FT_Stroker_BeginSubPath" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="to" type="FT_Vector*" />
+			<arg name="open" type="FT_Bool" />
+		</method>
+		<method name="FT_Stroker_EndSubPath" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+		</method>
+		<method name="FT_Stroker_LineTo" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="to" type="FT_Vector*" />
+		</method>
+		<method name="FT_Stroker_ConicTo" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="control" type="FT_Vector*" />
+			<arg name="to" type="FT_Vector*" />
+		</method>
+		<method name="FT_Stroker_CubicTo" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="control1" type="FT_Vector*" />
+			<arg name="control2" type="FT_Vector*" />
+			<arg name="to" type="FT_Vector*" />
+		</method>
+		<method name="FT_Stroker_GetBorderCounts" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="border" type="FT_StrokerBorder" />
+			<arg name="anum_points" type="FT_UInt *" />
+			<arg name="anum_contours" type="FT_UInt *" />
+		</method>
+		<method name="FT_Stroker_ExportBorder" result="void">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="border" type="FT_StrokerBorder" />
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Stroker_GetCounts" result="FT_Error">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="anum_points" type="FT_UInt *" />
+			<arg name="anum_contours" type="FT_UInt *" />
+		</method>
+		<method name="FT_Stroker_Export" result="void">
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="outline" type="FT_Outline*" />
+		</method>
+		<method name="FT_Stroker_Done" result="void">
+			<arg name="stroker" type="FT_Stroker" />
+		</method>
+		<method name="FT_Glyph_Stroke" result="FT_Error">
+			<arg name="pglyph" type="FT_Glyph *" />
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="destroy" type="FT_Bool" />
+		</method>
+		<method name="FT_Glyph_StrokeBorder" result="FT_Error">
+			<arg name="pglyph" type="FT_Glyph *" />
+			<arg name="stroker" type="FT_Stroker" />
+			<arg name="inside" type="FT_Bool" />
+			<arg name="destroy" type="FT_Bool" />
+		</method>
+		<method name="FT_GlyphSlot_Embolden" result="void">
+			<arg name="slot" type="FT_GlyphSlot" />
+		</method>
+		<method name="FT_GlyphSlot_AdjustWeight" result="void">
+			<arg name="slot" type="FT_GlyphSlot" />
+			<arg name="xdelta" type="FT_Fixed" />
+			<arg name="ydelta" type="FT_Fixed" />
+		</method>
+		<method name="FT_GlyphSlot_Oblique" result="void">
+			<arg name="slot" type="FT_GlyphSlot" />
+		</method>
+		<method name="FT_GlyphSlot_Slant" result="void">
+			<arg name="slot" type="FT_GlyphSlot" />
+			<arg name="xslant" type="FT_Fixed" />
+			<arg name="yslant" type="FT_Fixed" />
+		</method>
+		<method name="FT_Sin" result="FT_Fixed">
+			<arg name="angle" type="FT_Angle" />
+		</method>
+		<method name="FT_Cos" result="FT_Fixed">
+			<arg name="angle" type="FT_Angle" />
+		</method>
+		<method name="FT_Tan" result="FT_Fixed">
+			<arg name="angle" type="FT_Angle" />
+		</method>
+		<method name="FT_Atan2" result="FT_Angle">
+			<arg name="x" type="FT_Fixed" />
+			<arg name="y" type="FT_Fixed" />
+		</method>
+		<method name="FT_Angle_Diff" result="FT_Angle">
+			<arg name="angle1" type="FT_Angle" />
+			<arg name="angle2" type="FT_Angle" />
+		</method>
+		<method name="FT_Vector_Unit" result="void">
+			<arg name="vec" type="FT_Vector*" />
+			<arg name="angle" type="FT_Angle" />
+		</method>
+		<method name="FT_Vector_Rotate" result="void">
+			<arg name="vec" type="FT_Vector*" />
+			<arg name="angle" type="FT_Angle" />
+		</method>
+		<method name="FT_Vector_Length" result="FT_Fixed">
+			<arg name="vec" type="FT_Vector*" />
+		</method>
+		<method name="FT_Vector_Polarize" result="void">
+			<arg name="vec" type="FT_Vector*" />
+			<arg name="length" type="FT_Fixed *" />
+			<arg name="angle" type="FT_Angle *" />
+		</method>
+		<method name="FT_Vector_From_Polar" result="void">
+			<arg name="vec" type="FT_Vector*" />
+			<arg name="length" type="FT_Fixed" />
+			<arg name="angle" type="FT_Angle" />
+		</method>
+		<method name="FT_Get_WinFNT_Header" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="aheader" type="FT_WinFNT_HeaderRec *" />
+		</method>
+		<method name="FT_Has_PS_Glyph_Names" result="FT_Int">
+			<arg name="face" type="FT_Face" />
+		</method>
+		<method name="FT_Get_PS_Font_Info" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="afont_info" type="PS_FontInfo" />
+		</method>
+		<method name="FT_Get_PS_Font_Private" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="afont_private" type="PS_Private" />
+		</method>
+		<method name="FT_Get_PS_Font_Value" result="FT_Long">
+			<arg name="face" type="FT_Face" />
+			<arg name="key" type="PS_Dict_Keys" />
+			<arg name="idx" type="FT_UInt" />
+			<arg name="value" type="void *" />
+			<arg name="value_len" type="FT_Long" />
+		</method>
+		<method name="FT_Get_Sfnt_Table" result="void*">
+			<arg name="face" type="FT_Face" />
+			<arg name="tag" type="FT_Sfnt_Tag" />
+		</method>
+		<method name="FT_Load_Sfnt_Table" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="tag" type="FT_ULong" />
+			<arg name="offset" type="FT_Long" />
+			<arg name="buffer" type="FT_Byte*" />
+			<arg name="length" type="FT_ULong*" />
+		</method>
+		<method name="FT_Sfnt_Table_Info" result="FT_Error">
+			<arg name="face" type="FT_Face" />
+			<arg name="table_index" type="FT_UInt" />
+			<arg name="tag" type="FT_ULong *" />
+			<arg name="length" type="FT_ULong *" />
+		</method>
+		<method name="FT_Get_CMap_Language_ID" result="FT_ULong">
+			<arg name="charmap" type="FT_CharMap" />
+		</method>
+		<method name="FT_Get_CMap_Format" result="FT_Long">
+			<arg name="charmap" type="FT_CharMap" />
+		</method>
+
+    </interface>
+</library>    
