@@ -8,4 +8,5 @@ subprojects/*
 /amiga_shared/*.a
 /amiga_shared/*.library
 /amiga_shared/*.map
+/amiga_shared/*.o
 .vscode
